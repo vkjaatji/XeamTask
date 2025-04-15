@@ -7,11 +7,11 @@ export interface Task {
   completed: boolean;
 }
 
-interface TaskState {
+interface State {
   tasks: Task[];
 }
 
-const initialState: TaskState = {
+const initialState: State = {
   tasks: [],
 };
 

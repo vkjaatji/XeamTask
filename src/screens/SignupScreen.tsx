@@ -21,7 +21,7 @@ import AppButton from '../components/AppButton'; // Import AppButton
 const SignupScreen = () => {
   const { width } = useWindowDimensions();
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -31,12 +31,12 @@ const SignupScreen = () => {
       .required('Please confirm your password'),
   });
 
-  const handleSignUp = async (values, setSubmitting, setErrors) => {
+  const handleSignUp = async (values:any, setSubmitting:any, setErrors:any) => {
     try {
       await auth().createUserWithEmailAndPassword(values.email, values.password);
       dispatch(setUser(values.email));
       await saveUser(values.email);
-    } catch (err) {
+    } catch (err:any) {
       if (err.code === 'auth/email-already-in-use') {
         setErrors({ email: 'This email is already registered.' });
       } else {
@@ -59,7 +59,7 @@ const SignupScreen = () => {
           handleSignUp(values, setSubmitting, setErrors);
         }}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }:any) => (
           <View style={styles.inner}>
             <Text style={styles.title}>Create Account 🚀</Text>
 
@@ -94,7 +94,7 @@ const SignupScreen = () => {
               error={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ''}
             />
 
-            {errors.general && <AppTextInput error={errors.general} />}
+            {errors.general && <AppTextInput error={errors.general} label='' />}
 
             <AppButton
               title="Sign Up"

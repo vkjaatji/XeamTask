@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import AppTextInput from './AppTextInput';
 import AppButton from './AppButton';
 
-const TaskInput: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
+const CustomInput: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
   const dispatch = useDispatch();
 
   const handleAddTask = (
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskInput;
+export default CustomInput;

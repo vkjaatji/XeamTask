@@ -1,27 +1,27 @@
-// components/TaskModal.tsx
-
-import React, { FC } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {FC} from 'react';
+import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
-import TaskInput from './TaskInput';
+import CustomInput from './CustomInput';
 
-interface TaskModalProps {
+interface CustomModalProps {
   isVisible: boolean;
   onBackdropPress: () => void;
   onBackButtonPress: () => void;
 }
 
-const TaskModal: FC<TaskModalProps> = ({ isVisible, onBackdropPress, onBackButtonPress }) => {
+const CustomModal: FC<CustomModalProps> = ({
+  isVisible,
+  onBackdropPress,
+  onBackButtonPress,
+}) => {
   return (
     <Modal
-    
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
       onBackButtonPress={onBackButtonPress}
-      style={styles.modal}
-    >
+      style={styles.modal}>
       <View style={styles.modalContent}>
-        <TaskInput onSuccess={onBackButtonPress} />
+        <CustomInput onSuccess={onBackButtonPress} />
       </View>
     </Modal>
   );
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   modal: {
     justifyContent: 'flex-end',
     margin: 0,
-
   },
   modalContent: {
     backgroundColor: 'white',
@@ -42,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskModal;
+export default CustomModal;

@@ -3,9 +3,9 @@ import { View, Text, FlatList, StyleSheet, useWindowDimensions, TouchableOpacity
 import { useDispatch, useSelector } from 'react-redux';
 import { setTasks } from '../features/task/taskSlice';
 import { getTasksFromStorage, saveTasksToStorage } from '../utils/storage';
-import TaskItem from '../components/TaskItem';
-import TaskModal from '../components/TaskModal';  // Import the TaskModal component
 import { debounce } from 'lodash';
+import CustomModal from '../components/CustomModal';
+import CustomItem from '../components/TaskItem';
 
 const ToDoListScreen: React.FC = () => {
   const { width } = useWindowDimensions();
@@ -67,7 +67,7 @@ const ToDoListScreen: React.FC = () => {
           data={searchQuery?filteredTasks:tasks}
           
           renderItem={({ item }) => (
-            <TaskItem
+            <CustomItem
               id={item.id}
               name={item.name}
               completed={item.completed}
@@ -84,8 +84,8 @@ const ToDoListScreen: React.FC = () => {
         <Text style={styles.floatingButtonText}>+</Text>
       </TouchableOpacity>
 
-      {/* Use the TaskModal component */}
-      <TaskModal
+      {/* Use the TCustomModal component */}
+      <CustomModal
         isVisible={modalVisible}
         onBackdropPress={handleModalClose}
         onBackButtonPress={handleModalClose}

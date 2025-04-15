@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux';
 import { deleteTask, toggleTask } from '../features/task/taskSlice';
 import { Swipeable } from 'react-native-gesture-handler';
 
-interface TaskItemProps {
+interface CustomItemProps {
   id: string;
   name: string;
   completed: boolean;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ id, name, completed }) => {
+const CustomItem: React.FC<CustomItemProps> = ({ id, name, completed }) => {
   const dispatch = useDispatch();
   const swipeableRef = useRef<Swipeable>(null);
 
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskItem;
+export default CustomItem;

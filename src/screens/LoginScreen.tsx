@@ -24,7 +24,7 @@ const LoginScreen = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const {width} = useWindowDimensions();
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const loginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),

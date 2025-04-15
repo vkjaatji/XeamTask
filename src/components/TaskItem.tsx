@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { deleteTask, toggleTask } from '../features/task/taskSlice';
-import { Swipeable } from 'react-native-gesture-handler';
+import React, {useRef} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {deleteTask, toggleTask} from '../features/task/taskSlice';
+import {Swipeable} from 'react-native-gesture-handler';
 
 interface CustomItemProps {
   id: string;
@@ -10,7 +10,7 @@ interface CustomItemProps {
   completed: boolean;
 }
 
-const CustomItem: React.FC<CustomItemProps> = ({ id, name, completed }) => {
+const CustomItem: React.FC<CustomItemProps> = ({id, name, completed}) => {
   const dispatch = useDispatch();
   const swipeableRef = useRef<Swipeable>(null);
 
@@ -20,8 +20,14 @@ const CustomItem: React.FC<CustomItemProps> = ({ id, name, completed }) => {
   };
 
   const renderLeftActions = () => (
-    <View style={[styles.swipeAction, { backgroundColor: completed ? '#ff9f0a' : '#4cd964' }]}>
-      <Text style={styles.swipeText}>{completed ? 'Uncomplete' : 'Complete'}</Text>
+    <View
+      style={[
+        styles.swipeAction,
+        {backgroundColor: completed ? '#ff9f0a' : '#4cd964'},
+      ]}>
+      <Text style={styles.swipeText}>
+        {completed ? 'Uncomplete' : 'Complete'}
+      </Text>
     </View>
   );
 
@@ -29,8 +35,7 @@ const CustomItem: React.FC<CustomItemProps> = ({ id, name, completed }) => {
     <Swipeable
       ref={swipeableRef}
       renderLeftActions={renderLeftActions}
-      onSwipeableLeftOpen={handleSwipeLeftOpen}
-    >
+      onSwipeableLeftOpen={handleSwipeLeftOpen}>
       <View style={styles.taskContainer}>
         <Text style={[styles.taskText, completed && styles.completed]}>
           {name}
@@ -38,8 +43,7 @@ const CustomItem: React.FC<CustomItemProps> = ({ id, name, completed }) => {
 
         <TouchableOpacity
           onPress={() => dispatch(deleteTask(id))}
-          style={styles.deleteButton}
-        >
+          style={styles.deleteButton}>
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
       </View>
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: {width: 0, height: 1},
     shadowRadius: 2,
     justifyContent: 'space-between',
   },

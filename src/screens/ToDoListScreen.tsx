@@ -1,14 +1,24 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, StyleSheet, useWindowDimensions, TouchableOpacity, TextInput, SafeAreaView, StatusBar } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTasks } from '../features/task/taskSlice';
-import { getTasksFromStorage, saveTasksToStorage } from '../utils/storage';
-import { debounce } from 'lodash';
+import React, {useState, useEffect, useCallback} from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  useWindowDimensions,
+  TouchableOpacity,
+  TextInput,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {setTasks} from '../features/task/taskSlice';
+import {getTasksFromStorage, saveTasksToStorage} from '../utils/storage';
+import {debounce} from 'lodash';
 import CustomModal from '../components/CustomModal';
 import CustomItem from '../components/TaskItem';
 
 const ToDoListScreen: React.FC = () => {
-  const { width } = useWindowDimensions();
+  const {width} = useWindowDimensions();
   const tasks = useSelector((state: any) => state.tasks.tasks);
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,14 +37,14 @@ const ToDoListScreen: React.FC = () => {
     saveTasksToStorage(tasks);
   }, [tasks]);
 
-  const filteredTasks = tasks?.filter((task: { name: string; }) =>
-    task?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+  const filteredTasks = tasks?.filter((task: {name: string}) =>
+    task?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase()),
   );
-  console.log(tasks,"tasks")
+  console.log(tasks, 'tasks');
 
   const handleSearch = useCallback(
     debounce((query: string) => setSearchQuery(query), 500),
-    []
+    [],
   );
 
   const handleModalClose = () => {
@@ -46,7 +56,7 @@ const ToDoListScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { }]}>
+    <SafeAreaView style={[styles.container, {}]}>
       {/* Header */}
 
       <View style={styles.header}>
@@ -64,9 +74,8 @@ const ToDoListScreen: React.FC = () => {
         <Text style={styles.noTasksText}>No tasks found.</Text>
       ) : (
         <FlatList
-          data={searchQuery?filteredTasks:tasks}
-          
-          renderItem={({ item }) => (
+          data={searchQuery ? filteredTasks : tasks}
+          renderItem={({item}) => (
             <CustomItem
               id={item.id}
               name={item.name}
@@ -79,8 +88,7 @@ const ToDoListScreen: React.FC = () => {
 
       <TouchableOpacity
         style={styles.floatingButton}
-        onPress={handleFloatingButtonPress}
-      >
+        onPress={handleFloatingButtonPress}>
         <Text style={styles.floatingButtonText}>+</Text>
       </TouchableOpacity>
 
@@ -89,20 +97,19 @@ const ToDoListScreen: React.FC = () => {
         isVisible={modalVisible}
         onBackdropPress={handleModalClose}
         onBackButtonPress={handleModalClose}
-       
       />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff',padding:30 },
+  container: {flex: 1, backgroundColor: '#fff', padding: 30},
   header: {
     width: '100%',
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop:80,
+    marginTop: 80,
   },
   headerText: {
     color: 'black',
@@ -128,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.3,
     shadowRadius: 4,
   },

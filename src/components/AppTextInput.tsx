@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,7 @@ interface Props extends TextInputProps {
   isPassword?: boolean;
 }
 
-const AppTextInput: React.FC<Props> = ({ label, error, isPassword, ...rest }) => {
+const AppTextInput: React.FC<Props> = ({label, error, isPassword, ...rest}) => {
   const [secureText, setSecureText] = useState(isPassword);
 
   return (

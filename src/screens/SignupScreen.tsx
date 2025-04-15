@@ -8,39 +8,48 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import { Formik } from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 import auth from '@react-native-firebase/auth';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../features/auth/authSlice';
-import { saveUser } from '../utils/storage';
-import { useNavigation } from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {setUser} from '../features/auth/authSlice';
+import {saveUser} from '../utils/storage';
+import {useNavigation} from '@react-navigation/native';
 import AppTextInput from '../components/AppTextInput'; // Your custom input component
 import AppButton from '../components/AppButton'; // Import AppButton
 
 const SignupScreen = () => {
-  const { width } = useWindowDimensions();
+  const {width} = useWindowDimensions();
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password')], 'Passwords must match')
       .required('Please confirm your password'),
   });
 
-  const handleSignUp = async (values:any, setSubmitting:any, setErrors:any) => {
+  const handleSignUp = async (
+    values: any,
+    setSubmitting: any,
+    setErrors: any,
+  ) => {
     try {
-      await auth().createUserWithEmailAndPassword(values.email, values.password);
+      await auth().createUserWithEmailAndPassword(
+        values.email,
+        values.password,
+      );
       dispatch(setUser(values.email));
       await saveUser(values.email);
-    } catch (err:any) {
+    } catch (err: any) {
       if (err.code === 'auth/email-already-in-use') {
-        setErrors({ email: 'This email is already registered.' });
+        setErrors({email: 'This email is already registered.'});
       } else {
-        setErrors({ general: 'Registration failed. Try again.' });
+        setErrors({general: 'Registration failed. Try again.'});
       }
     } finally {
       setSubmitting(false);
@@ -50,16 +59,22 @@ const SignupScreen = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={[styles.container, { padding: width * 0.1 }]}
-    >
+      style={[styles.container, {padding: width * 0.1}]}>
       <Formik
-        initialValues={{ email: '', password: '', confirmPassword: '' }}
+        initialValues={{email: '', password: '', confirmPassword: ''}}
         validationSchema={SignupSchema}
-        onSubmit={(values, { setSubmitting, setErrors }) => {
+        onSubmit={(values, {setSubmitting, setErrors}) => {
           handleSignUp(values, setSubmitting, setErrors);
-        }}
-      >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }:any) => (
+        }}>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+          isSubmitting,
+        }: any) => (
           <View style={styles.inner}>
             <Text style={styles.title}>Create Account 🚀</Text>
 
@@ -91,10 +106,14 @@ const SignupScreen = () => {
               value={values.confirmPassword}
               placeholder="Re-enter password"
               secureTextEntry
-              error={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ''}
+              error={
+                touched.confirmPassword && errors.confirmPassword
+                  ? errors.confirmPassword
+                  : ''
+              }
             />
 
-            {errors.general && <AppTextInput error={errors.general} label='' />}
+            {errors.general && <AppTextInput error={errors.general} label="" />}
 
             <AppButton
               title="Sign Up"
@@ -104,7 +123,9 @@ const SignupScreen = () => {
             />
 
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.linkText}>Already have an account? Login</Text>
+              <Text style={styles.linkText}>
+                Already have an account? Login
+              </Text>
             </TouchableOpacity>
           </View>
         )}

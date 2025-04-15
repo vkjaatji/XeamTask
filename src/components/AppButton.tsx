@@ -1,5 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, ViewStyle } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  ViewStyle,
+} from 'react-native';
 
 interface Props {
   title: string;
@@ -9,14 +15,23 @@ interface Props {
   style?: ViewStyle;
 }
 
-const AppButton: React.FC<Props> = ({ title, onPress, loading, disabled, style }) => {
+const AppButton: React.FC<Props> = ({
+  title,
+  onPress,
+  loading,
+  disabled,
+  style,
+}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled || loading}
-      style={[styles.button, style, disabled && { opacity: 0.7 }]}
-    >
-      {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.text}>{title}</Text>}
+      style={[styles.button, style, disabled && {opacity: 0.7}]}>
+      {loading ? (
+        <ActivityIndicator color="#fff" />
+      ) : (
+        <Text style={styles.text}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "661504274106",
+    "project_id": "xeamtask",
+    "storage_bucket": "xeamtask.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661504274106:android:fa8642755aa54523199c83",
+        "android_client_info": {
+          "package_name": "com.xeamtask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUoF5jLVhu1AAbrNcAauqaDCHdOE5XuOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

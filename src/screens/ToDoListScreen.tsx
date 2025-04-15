@@ -15,7 +15,7 @@ import {setTasks} from '../features/task/taskSlice';
 import {getTasksFromStorage, saveTasksToStorage} from '../utils/storage';
 import {debounce} from 'lodash';
 import CustomModal from '../components/CustomModal';
-import CustomItem from '../components/TaskItem';
+import CustomItem from '../components/CustomItem';
 
 const ToDoListScreen: React.FC = () => {
   const {width} = useWindowDimensions();
@@ -92,7 +92,6 @@ const ToDoListScreen: React.FC = () => {
         <Text style={styles.floatingButtonText}>+</Text>
       </TouchableOpacity>
 
-      {/* Use the TCustomModal component */}
       <CustomModal
         isVisible={modalVisible}
         onBackdropPress={handleModalClose}

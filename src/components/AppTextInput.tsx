@@ -27,6 +27,7 @@ const AppTextInput: React.FC<Props> = ({label, error, isPassword, ...rest}) => {
           style={styles.input}
           secureTextEntry={secureText}
           placeholder={label}
+          placeholderTextColor={"gray"}
           {...rest}
         />
         {isPassword && (
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 20,
     fontSize: 16,
+    color:'#000'
   },
   icon: {
     marginLeft: 8,

@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   TextInput,
   SafeAreaView,
-  StatusBar,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {setTasks} from '../features/task/taskSlice';
@@ -23,6 +22,7 @@ const ToDoListScreen: React.FC = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [tempSearch, setTempSearch] = useState('');
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -43,7 +43,7 @@ const ToDoListScreen: React.FC = () => {
   console.log(tasks, 'tasks');
 
   const handleSearch = useCallback(
-    debounce((query: string) => setSearchQuery(query), 500),
+    debounce((query: string) => setSearchQuery(query)),
     [],
   );
 
@@ -66,8 +66,14 @@ const ToDoListScreen: React.FC = () => {
       <TextInput
         style={styles.searchInput}
         placeholder="Search tasks"
-        value={searchQuery}
-        onChangeText={handleSearch}
+        placeholderTextColor={'gray'}
+        // value={searchQuery}
+        value={tempSearch}
+        // onChangeText={handleSearch}
+        onChangeText={text => {
+          setTempSearch(text);
+          handleSearch(text);
+        }}
       />
 
       {filteredTasks?.length === 0 ? (
@@ -122,6 +128,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     paddingLeft: 10,
     borderRadius: 10,
+    color: '#000',
   },
   floatingButton: {
     position: 'absolute',

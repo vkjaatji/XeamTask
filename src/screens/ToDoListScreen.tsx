@@ -15,11 +15,14 @@ import {getTasksFromStorage, saveTasksToStorage} from '../utils/storage';
 import {debounce} from 'lodash';
 import CustomModal from '../components/CustomModal';
 import CustomItem from '../components/CustomItem';
+import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const ToDoListScreen: React.FC = () => {
   const {width} = useWindowDimensions();
   const tasks = useSelector((state: any) => state.tasks.tasks);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [tempSearch, setTempSearch] = useState('');
@@ -40,10 +43,9 @@ const ToDoListScreen: React.FC = () => {
   const filteredTasks = tasks?.filter((task: {name: string}) =>
     task?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase()),
   );
-  console.log(tasks, 'tasks');
 
   const handleSearch = useCallback(
-    debounce((query: string) => setSearchQuery(query)),
+    debounce((query: string) => setSearchQuery(query), 300),
     [],
   );
 
@@ -56,21 +58,25 @@ const ToDoListScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, {}]}>
-      {/* Header */}
+    <SafeAreaView style={styles.container}>
+      {/* Back Button */}
+      
 
+      {/* Header */}
       <View style={styles.header}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Icon name="arrow-back" size={24} color="#000" />
+      </TouchableOpacity>
         <Text style={styles.headerText}>To-Do List</Text>
       </View>
 
+      {/* Search Input */}
       <TextInput
         style={styles.searchInput}
         placeholder="Search tasks"
-        placeholderTextColor={'gray'}
-        // value={searchQuery}
+        placeholderTextColor="gray"
         value={tempSearch}
-        // onChangeText={handleSearch}
-        onChangeText={text => {
+        onChangeText={(text) => {
           setTempSearch(text);
           handleSearch(text);
         }}
@@ -92,6 +98,7 @@ const ToDoListScreen: React.FC = () => {
         />
       )}
 
+      {/* Floating Button */}
       <TouchableOpacity
         style={styles.floatingButton}
         onPress={handleFloatingButtonPress}>
@@ -107,14 +114,27 @@ const ToDoListScreen: React.FC = () => {
   );
 };
 
+export default ToDoListScreen;
+
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#fff', padding: 30},
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
+  backButton: {
+    position: 'absolute',
+    // top: 20,
+    left: 0,
+    zIndex: 10,
+    padding: 10,
+  },
   header: {
-    width: '100%',
-    height: 40,
-    justifyContent: 'center',
+    marginTop: 30,
     alignItems: 'center',
-    marginTop: 80,
+    marginBottom: 10,
+    justifyContent:"center"
   },
   headerText: {
     color: 'black',
@@ -156,5 +176,3 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
-export default ToDoListScreen;

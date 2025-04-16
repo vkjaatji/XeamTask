@@ -39,8 +39,8 @@ const AppNavigator = () => {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {user ? (
           <>
-            <Stack.Screen name="ToDoListScreen" component={ToDoListScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="ToDoListScreen" component={ToDoListScreen} />
           </>
         ) : (
           <>
